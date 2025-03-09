@@ -113,7 +113,7 @@ const SponsorsPage = ({ initialPoints = 75 }) => {
       company: 'Softwire',
       description: 'Leading software development consultancy',
       role: 'Come and find out about opportunities with us',
-      imageUrl: 'https://raw.githubusercontent.com/gist/lemonchi/f3ebd3f5ff0c97183af22d2f40fa32d5/raw/dbd04f9e1b53cc6e1014d03d5790ccf45c212ebd/ghost-blinky.png'
+      imageUrl: 'assets/blinky.webp'
     },
     {
       id: 2,
@@ -121,7 +121,7 @@ const SponsorsPage = ({ initialPoints = 75 }) => {
       company: 'Starling Bank',
       description: "Britain's first digital bank",
       role: 'Come and have a chat with us',
-      imageUrl: 'https://raw.githubusercontent.com/gist/lemonchi/f3ebd3f5ff0c97183af22d2f40fa32d5/raw/dbd04f9e1b53cc6e1014d03d5790ccf45c212ebd/ghost-pinky.png'
+      imageUrl: 'assets/pinky.webp'
     },
     {
       id: 3,
@@ -129,7 +129,7 @@ const SponsorsPage = ({ initialPoints = 75 }) => {
       company: 'Addition',
       description: 'RECRUITMENT Age',
       role: 'Cloud Solutions Architect',
-      imageUrl: 'https://raw.githubusercontent.com/gist/lemonchi/f3ebd3f5ff0c97183af22d2f40fa32d5/raw/dbd04f9e1b53cc6e1014d03d5790ccf45c212ebd/ghost-inky.png'
+      imageUrl: 'assets/inky.webp'
     },
     {
       id: 4,
@@ -137,7 +137,7 @@ const SponsorsPage = ({ initialPoints = 75 }) => {
       company: 'Meta',
       description: 'Social media and virtual reality pioneer',
       role: 'Frontend Engineer',
-      imageUrl: 'https://raw.githubusercontent.com/gist/lemonchi/f3ebd3f5ff0c97183af22d2f40fa32d5/raw/dbd04f9e1b53cc6e1014d03d5790ccf45c212ebd/ghost-clyde.png'
+      imageUrl: 'assets/clyde.webp'
     },
     {
       id: 5,
@@ -145,7 +145,7 @@ const SponsorsPage = ({ initialPoints = 75 }) => {
       company: 'Apple',
       description: 'Innovation leader in consumer technology',
       role: 'iOS Developer',
-      imageUrl: 'https://i.imgur.com/GF8JctO.png'
+      imageUrl: 'assets/blue_ghost.webp'
     }
   ];
 
