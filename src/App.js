@@ -21,7 +21,7 @@ const HTMLPage1 = () => {
 };
 
 const HTMLPage2 = () => {
-  window.location.href = "/leaderboard.html"; // Redirect to the HTML page
+  window.location.href = "/points-dashboard.html"; // Redirect to the HTML page
   return null; // No need to render anything
 };
 
