@@ -1,0 +1,26 @@
+/* Base styles */
+body {
+    background-color: #111827;
+    color: #e5e7eb;
+  }
+  
+  .success-stories {
+    background-color: #111827;
+    color: #e5e7eb;
+  }
+  
+  /* Lighter boxes with subtle borders */
+  .bg-white, .bg-dark {
+    background-color: #1f2937;
+    border-color: #374151;
+  }
+  
+  .border-gray-100 {
+    border-color: #374151;
+  }
+  
+  .shadow-lg, .shadow-md {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  }
+  
+  

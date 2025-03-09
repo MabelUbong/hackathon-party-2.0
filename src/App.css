@@ -1,3 +1,24 @@
+/* src/App.css */
+
+/* Ensure dark background for the entire app */
+body, 
+#root, 
+.App {
+    background-color: #000000 !important;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/* Override any bootstrap background colors */
+.container,
+.container-fluid,
+.row,
+.col {
+    background-color: transparent !important;
+}
+
+/* Keep your existing App.css styles */
 .App {
   text-align: center;
 }
@@ -21,7 +42,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: rgb(253, 245, 245);
 }
 
 .App-link {

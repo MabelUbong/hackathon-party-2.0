@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HackathonParty Community</title>
+  <!-- Load React -->
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <!-- Load Babel -->
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <!-- Load Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #111827;
+      color: #e5e7eb;
+    }
+
+    /* Lighter boxes with subtle borders */
+    .bg-white, .bg-dark, #root {
+      background-color: #1f2937;
+      border-color: #374151;
+    }
+
+    .border-gray-100 {
+      border-color: #374151;
+    }
+
+    .shadow-lg, .shadow-md {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Text colors for dark mode */
+    .text-gray-800, .text-gray-700, .text-gray-600, .text-gray-500 {
+      color: #9ca3af;
+    }
+
+    /* Button colors */
+    .bg-purple-600 {
+      background-color: #4F46E5;
+    }
+
+    .text-purple-600 {
+      color: #818CF8;
+    }
+
+    .bg-purple-100 {
+      background-color: #1e1b4b;
+    }
+
+    .text-purple-700 {
+      color: #818CF8;
+    }
+
+    /* Call to action gradient */
+    .from-indigo-50.to-pink-50 {
+      background: linear-gradient(to right, #1e1b4b, #1e1e2d);
+    }
+
+    /* Filter buttons */
+    .bg-gray-100 {
+      background-color: #1f2937;
+    }
+
+    /* Override text area */
+    textarea {
+      background-color: #374151 !important;
+      border-color: #4B5563 !important;
+      color: #e5e7eb;
+    }
+
+    /* Fix any inverted elements */
+    .bg-white\/20 {
+      background-color: rgba(31, 41, 55, 0.5);
+    }
+
+    /* Header styling for dark theme */
+    .bg-background {
+      background-color: #111827;
+    }
+
+    .bg-background\/90 {
+      background-color: rgba(17, 24, 39, 0.9);
+    }
+
+    .border-foreground\/20 {
+      border-color: rgba(229, 231, 235, 0.2);
+    }
+
+    header a {
+      color: #e5e7eb;
+    }
+
+    header a:hover {
+      color: #818CF8;
+    }
+
+    .hover\:bg-accent:hover {
+      background-color: #1e1b4b;
+    }
+
+    .hover\:text-accent-foreground:hover {
+      color: #e5e7eb;
+    }
+
+    .hover\:text-primary:hover {
+      color: #818CF8;
+    }
+
+    /* Skill tags */
+    .skill-tag {
+      background-color: #1e1b4b;
+      color: #818CF8;
+      padding: 0.25rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+    }
+
+    /* Network graph */
+    .connection-line {
+      stroke: #4F46E5;
+      stroke-width: 2;
+      stroke-dasharray: 5, 5;
+      animation: dash 30s linear infinite;
+    }
+
+    @keyframes dash {
+      to {
+        stroke-dashoffset: 1000;
+      }
+    }
+
+    .node {
+      fill: #4F46E5;
+      r: 5;
+      transition: all 0.3s ease;
+    }
+
+    .node:hover {
+      r: 8;
+      fill: #ec4899;
+    }
+
+    .node-you {
+      fill: #ec4899;
+      r: 8;
+    }
+
+    .connection-highlight {
+      stroke: #ec4899;
+      stroke-width: 3;
+      stroke-dasharray: none;
+    }
+
+    /* Connection animation */
+    @keyframes pulse {
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7);
+      }
+
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(79, 70, 229, 0);
+      }
+
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
+      }
+    }
+
+    .pulse-animation {
+      animation: pulse 2s infinite;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <header class="top-0 z-50 w-full border-b border-foreground/20 bg-background/90" style="flex: 0 1 0%;">
+    <div class="relative z-50 mx-auto flex w-full max-w-6xl items-center justify-between px-2 py-2 sm:px-6 lg:px-4">
+      <!-- Logo and Title -->
+      <div class="flex items-center space-x-2 bg-transparent">
+        <a class="text group flex items-center space-x-1 hover:text-primary" href="index.html">
+          <div style="will-change: transform; transform: none;">
+            <svg class="-mt-0.5 h-5 group-hover:text-primary md:h-6" fill="none" viewBox="0 0 197 197" xmlns="http://www.w3.org/2000/svg">
+              <path class="fill-current hover:text-primary" d="M104.51 36.8379V36.6051L112.165 41.0161C113.112 41.5633 114.146 41.8201 115.165 41.8201C117.243 41.8201 119.264 40.7425 120.375 38.8202C122.034 35.9499 121.051 32.2804 118.175 30.6245L110.52 26.2135L118.175 21.8024C121.051 20.1465 122.034 16.477 120.375 13.6067C118.716 10.7364 115.04 9.75008 112.165 11.4108L104.51 15.8219V6.99978C104.51 3.6855 101.82 1 98.4996 1C95.1794 1 92.4892 3.6855 92.4892 6.99978V15.8219L84.8343 11.4108C81.9565 9.75008 78.2829 10.7388 76.624 13.6067C74.9651 16.477 75.9484 20.1465 78.8238 21.8024L86.4787 26.2135L78.8238 30.6245C75.9484 32.2804 74.9651 35.9499 76.624 38.8202C77.7372 40.7449 79.7567 41.8201 81.8339 41.8201C82.8532 41.8201 83.887 41.5609 84.8343 41.0161L92.4892 36.6051V36.8379L19.5994 187.389C18.6978 189.249 18.8204 191.44 19.9191 193.19C21.0179 194.939 22.9412 196 25.0112 196H171.988C174.056 196 175.981 194.939 177.08 193.19C178.181 191.44 178.301 189.249 177.4 187.389L104.51 36.8379ZM71.7195 184L144.076 146.137L152.444 163.424L113.668 184H71.7195ZM98.4996 52.0005L110.696 77.19L78.0954 94.1454L98.4996 52.0005ZM58.0566 135.532L123.008 102.619L129.739 116.525L46.4733 159.457L58.0566 135.532Z"></path>
+            </svg>
+          </div>
+          <p class="whitespace-nowrap text-2xl font-bold md:text-3xl" style="color: var(--foreground);">
+            <span class="inline-block">HackathonParty</span>
+          </p>
+        </a>
+      </div>
+
+      <!-- Navigation Links - Add your page links here -->
+      <div class="hidden md:flex items-center space-x-4">
+        <a href="index.html" class="text-sm hover:text-purple-400 transition-colors">Social Wall</a>
+        <a href="success-stories.html" class="text-sm hover:text-purple-400 transition-colors">Success Stories</a>
+        <a href="community.html" class="text-sm hover:text-purple-400 transition-colors">Community</a>
+        <a href="incentives.html" class="text-sm hover:text-purple-400 transition-colors">Incentives</a>
+      </div>
+
+      <!-- Points Dropdown -->
+      <div class="relative group">
+        <button class="flex items-center space-x-1 bg-purple-900/30 hover:bg-purple-800/50 rounded-lg px-3 py-1.5 transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          <span class="font-medium">75 points</span>
+          <span class="text-xs text-purple-300 ml-1">Bronze</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </button>
+
+        <!-- Dropdown Menu -->
+        <div class="absolute right-0 mt-2 w-64 bg-gray-800 rounded-lg shadow-lg overflow-hidden transform opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 z-50">
+          <div class="p-3 border-b border-gray-700">
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium">Bronze Level</span>
+              <a href="points-dashboard.html" class="text-xs text-purple-400 hover:text-purple-300">View Dashboard</a>
+            </div>
+            <div class="mt-2 bg-gray-700 rounded-full h-2 overflow-hidden">
+              <div class="bg-gradient-to-r from-purple-600 to-pink-500 h-full rounded-full" style="width: 60%"></div>
+            </div>
+            <div class="mt-1 flex justify-between text-xs text-gray-400">
+              <span>75 points</span>
+              <span>Next: Silver (125 pts)</span>
+            </div>
+          </div>
+
+          <div class="p-3">
+            <div class="text-xs font-medium text-gray-400 mb-2">Quick Actions:</div>
+            <a href="community.html" class="flex items-center py-2 px-3 text-sm hover:bg-gray-700 rounded transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="8.5" cy="7" r="4"></circle>
+                <line x1="20" y1="8" x2="20" y2="14"></line>
+                <line x1="23" y1="11" x2="17" y2="11"></line>
+              </svg>
+              Connect with participants
+              <span class="ml-auto text-xs text-purple-400">+15 pts</span>
+            </a>
+            <a href="#" class="flex items-center py-2 px-3 text-sm hover:bg-gray-700 rounded transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              Share on social media
+              <span class="ml-auto text-xs text-purple-400">+20 pts</span>
+            </a>
+            <a href="incentives.html" class="flex items-center py-2 px-3 text-sm hover:bg-gray-700 rounded transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                <path d="M4 22h16"></path>
+                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+              </svg>
+              View rewards
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div id="root"></div>
+
+  <script type="text/babel">
+    // Icon components
+    const Star = ({ size = 16, className = "" }) => (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={className}
+      >
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+      </svg>
+    );
+
+    const Users = ({ size = 16, className = "" }) => (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={className}
+      >
+        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+      </svg>
+    );
+
+    const Search = ({ size = 16, className = "" }) => (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={className}
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    );
+
+    const MessageCircle = ({ size = 16, className = "" }) => (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={className}
+      >
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+      </svg>
+    );
+
+    const Hash = ({ size = 12, className = "" }) => (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={className}
+      >
+        <line x1="4" y1="9" x2="20" y2="9"></line>
+        <line x1="4" y1="15" x2="20" y2="15"></line>
+        <line x1="10" y1="3" x2="8" y2="21"></line>
+        <line x1="16" y1="3" x2="14" y2="21"></line>
+      </svg>
+    );
+
+    const UserPlus = ({ size = 16, className = "" }) => (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={className}
+      >
+        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="8.5" cy="7" r="4"></circle>
+        <line x1="20" y1="8" x2="20" y2="14"></line>
+        <line x1="23" y1="11" x2="17" y2="11"></line>
+      </svg>
+    );
+
+    const Network = ({ size = 16, className = "" }) => (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={className}
+      >
+        <rect x="16" y="16" width="6" height="6" rx="1"></rect>
+        <rect x="2" y="16" width="6" height="6" rx="1"></rect>
+        <rect x="9" y="2" width="6" height="6" rx="1"></rect>
+        <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"></path>
+        <path d="M12 12V8"></path>
+      </svg>
+    );
+
+    const Filter = ({ size = 16, className = "" }) => (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={className}
+      >
+        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+      </svg>
+    );
+
+    // Main component
+    const CommunityPage = () => {
+      const [points, setPoints] = React.useState(50);
+      const [activeFilter, setActiveFilter] = React.useState('all');
+      const [searchQuery, setSearchQuery] = React.useState('');
+      const [connectedUsers, setConnectedUsers] = React.useState([3, 7, 12]);
+      const [showConnectSuccess, setShowConnectSuccess] = React.useState(false);
+      const [showNetworkView, setShowNetworkView] = React.useState(false);
+      const [selectedParticipant, setSelectedParticipant] = React.useState(null);
+
+      // Sample participants data
+      const participants = [
+        {
+          id: 1,
+          name: "Sarah Johnson",
+          role: "Frontend Developer",
+          company: "Tech Innovations",
+          image: "https://randomuser.me/api/portraits/women/32.jpg",
+          skills: ["React", "JavaScript", "UI/UX", "Accessibility"],
+          interests: ["Web Development", "Design Systems", "Mentorship"],
+          firstTimer: true,
+          lookingFor: "Teammates with backend skills",
+          bio: "I'm a frontend developer passionate about creating accessible and beautiful web experiences. This is my first hackathon and I'm looking to collaborate with others who have complementary skills."
+        },
+        {
+          id: 2,
+          name: "Maya Patel",
+          role: "Data Scientist",
+          company: "DataWorks AI",
+          image: "https://randomuser.me/api/portraits/women/44.jpg",
+          skills: ["Python", "Machine Learning", "Data Visualization", "Statistics"],
+          interests: ["AI Ethics", "NLP", "Educational Technology"],
+          firstTimer: false,
+          lookingFor: "UI designers to collaborate on a data viz project",
+          bio: "Data scientist with a background in NLP. I've participated in several hackathons before and love the collaborative energy. Looking to work on projects with social impact."
+        },
+        {
+          id: 3,
+          name: "Zoe Chen",
+          role: "Full Stack Engineer",
+          company: "Startup Foundry",
+          image: "https://randomuser.me/api/portraits/women/65.jpg",
+          skills: ["Node.js", "React", "MongoDB", "AWS"],
+          interests: ["Startups", "EdTech", "Remote Work Tools"],
+          firstTimer: false,
+          lookingFor: "Anyone interested in education technology",
+          bio: "Full stack developer working at a startup. I love building things from scratch and seeing ideas come to life. My passion is in educational technology and making learning more accessible."
+        },
+        {
+          id: 4,
+          name: "Aisha Rahman",
+          role: "UX Designer",
+          company: "Creative Solutions",
+          image: "https://randomuser.me/api/portraits/women/68.jpg",
+          skills: ["User Research", "Figma", "Prototyping", "Accessibility"],
+          interests: ["Inclusive Design", "Design Systems", "Mobile UX"],
+          firstTimer: true,
+          lookingFor: "Developers to bring designs to life",
+          bio: "UX designer focused on creating inclusive digital experiences. This is my first hackathon and I'm excited to collaborate with developers to bring ideas to life. I'm particularly interested in projects that address accessibility challenges."
+        },
+        {
+          id: 5,
+          name: "Elena Rodriguez",
+          role: "Backend Developer",
+          company: "FinTech Solutions",
+          image: "https://randomuser.me/api/portraits/women/17.jpg",
+          skills: ["Java", "Spring Boot", "PostgreSQL", "Microservices"],
+          interests: ["Financial Technology", "API Design", "Cloud Architecture"],
+          firstTimer: false,
+          lookingFor: "Frontend devs and designers for a fintech project",
+          bio: "Backend developer specializing in secure, scalable systems. I have experience in the fintech industry and am looking to work on projects that could help improve financial literacy or access."
+        },
+        {
+          id: 6,
+          name: "Nina Kim",
+          role: "Product Manager",
+          company: "Health Innovations",
+          image: "https://randomuser.me/api/portraits/women/90.jpg",
+          skills: ["Product Strategy", "User Stories", "Market Research", "Agile"],
+          interests: ["Healthcare Tech", "Mental Health", "Productivity Tools"],
+          firstTimer: true,
+          lookingFor: "Full team to work on a healthcare solution",
+          bio: "Product manager in the healthcare space. I'm joining my first hackathon to experience the rapid innovation process firsthand. I have ideas for mental health applications and would love to find a team to explore them."
+        },
+        {
+          id: 7,
+          name: "Jasmine Taylor",
+          role: "Mobile Developer",
+          company: "App Wizards",
+          image: "https://randomuser.me/api/portraits/women/25.jpg",
+          skills: ["Swift", "Kotlin", "React Native", "Firebase"],
+          interests: ["AR/VR", "Mobile Accessibility", "IoT Integration"],
+          firstTimer: false,
+          lookingFor: "UX designers interested in mobile experiences",
+          bio: "Mobile developer with expertise in both iOS and Android. I'm particularly interested in augmented reality and how it can enhance everyday experiences. Looking for creative partners who think outside the box."
+        },
+        {
+          id: 8,
+          name: "Priya Sharma",
+          role: "DevOps Engineer",
+          company: "Cloud Systems",
+          image: "https://randomuser.me/api/portraits/women/39.jpg",
+          skills: ["Kubernetes", "Docker", "CI/CD", "Terraform"],
+          interests: ["Infrastructure as Code", "Cloud Security", "Automation"],
+          firstTimer: false,
+          lookingFor: "Developers building cloud-native applications",
+          bio: "DevOps engineer focused on cloud infrastructure and automation. I can help teams set up efficient deployment pipelines and ensure applications are scalable and secure. Excited to bring my infrastructure expertise to hackathon projects."
+        },
+        {
+          id: 9,
+          name: "Olivia Martinez",
+          role: "Security Analyst",
+          company: "SecureNet",
+          image: "https://randomuser.me/api/portraits/women/47.jpg",
+          skills: ["Penetration Testing", "Security Auditing", "Encryption", "Auth Flows"],
+          interests: ["Privacy Tech", "Secure Communication", "Digital Identity"],
+          firstTimer: true,
+          lookingFor: "Teams interested in building privacy-focused solutions",
+          bio: "Cybersecurity professional specializing in application security. This is my first hackathon, and I'm looking to collaborate on projects where security and privacy are key considerations. I believe these aspects should be built-in from the start."
+        },
+        {
+          id: 10,
+          name: "Leila Washington",
+          role: "Data Engineer",
+          company: "Analytics Pros",
+          image: "https://randomuser.me/api/portraits/women/79.jpg",
+          skills: ["Apache Spark", "ETL Pipelines", "SQL", "Data Modeling"],
+          interests: ["Big Data", "Data Ethics", "Real-time Analytics"],
+          firstTimer: false,
+          lookingFor: "Data scientists and visualization experts",
+          bio: "Data engineer with experience building scalable data pipelines. I'm passionate about making data accessible and actionable. Looking for collaborators who are interested in data-driven projects with meaningful impact."
+        },
+        {
+          id: 11,
+          name: "Sofia Nguyen",
+          role: "ML Engineer",
+          company: "AI Ventures",
+          image: "https://randomuser.me/api/portraits/women/54.jpg",
+          skills: ["TensorFlow", "Computer Vision", "NLP", "Model Deployment"],
+          interests: ["Responsible AI", "Healthcare ML", "Edge Computing"],
+          firstTimer: false,
+          lookingFor: "Domain experts and frontend developers",
+          bio: "Machine learning engineer focused on applying AI to solve real-world problems. I'm particularly interested in healthcare applications and ensuring responsible AI development. Looking for domain experts who can bring context to technical solutions."
+        },
+        {
+          id: 12,
+          name: "Amara Okafor",
+          role: "Blockchain Developer",
+          company: "DeFi Innovations",
+          image: "https://randomuser.me/api/portraits/women/88.jpg",
+          skills: ["Solidity", "Smart Contracts", "Web3.js", "DApps"],
+          interests: ["Decentralized Finance", "NFTs", "DAO Governance"],
+          firstTimer: false,
+          lookingFor: "Anyone interested in blockchain applications beyond finance",
+          bio: "Blockchain developer exploring innovative use cases for decentralized technology. I'm interested in projects that leverage blockchain for social good, digital identity, or creative applications. Happy to introduce newcomers to Web3."
+        },
+        {
+          id: 13,
+          name: "Rachel Green",
+          role: "QA Engineer",
+          company: "Quality First",
+          image: "https://randomuser.me/api/portraits/women/59.jpg",
+          skills: ["Test Automation", "Selenium", "API Testing", "Performance Testing"],
+          interests: ["Test-Driven Development", "Quality Metrics", "User Testing"],
+          firstTimer: true,
+          lookingFor: "Teams who value quality assurance from the start",
+          bio: "QA engineer committed to building quality into the development process. This is my first hackathon, and I want to show how testing doesn't have to slow down innovation. I can help teams deliver more reliable solutions even in a time-constrained environment."
+        },
+        {
+          id: 14,
+          name: "Tara Williams",
+          role: "AR/VR Developer",
+          company: "Immersive Technologies",
+          image: "https://randomuser.me/api/portraits/women/63.jpg",
+          skills: ["Unity", "ARKit", "VR Development", "3D Modeling"],
+          interests: ["Spatial Computing", "Educational VR", "Virtual Collaboration"],
+          firstTimer: false,
+          lookingFor: "3D artists and UX designers interested in spatial computing",
+          bio: "AR/VR developer pushing the boundaries of immersive experiences. I'm excited about the potential of spatial computing to transform how we work, learn, and connect. Looking for creative collaborators who want to explore this emerging space."
+        },
+        {
+          id: 15,
+          name: "Harper Jones",
+          role: "Technical Writer",
+          company: "Doc Masters",
+          image: "https://randomuser.me/api/portraits/women/91.jpg",
+          skills: ["Documentation", "UX Writing", "Information Architecture", "Markdown"],
+          interests: ["Developer Experience", "Learning Design", "Content Strategy"],
+          firstTimer: true,
+          lookingFor: "Teams who need help making their solutions understandable",
+          bio: "Technical writer specializing in making complex concepts accessible. Often overlooked in hackathons, good documentation and UX writing can make the difference between a project that's understood and one that's ignored. I can help your team communicate the value of your solution effectively."
+        }
+      ];
+
+      const handleConnect = (userId) => {
+        if (!connectedUsers.includes(userId)) {
+          setConnectedUsers([...connectedUsers, userId]);
+          setPoints(points + 15);
+          setShowConnectSuccess(true);
+          setTimeout(() => {
+            setShowConnectSuccess(false);
+          }, 3000);
+        }
+      };
+
+      const handleViewProfile = (participant) => {
+        setSelectedParticipant(participant);
+      };
+
+      const handleCloseProfile = () => {
+        setSelectedParticipant(null);
+      };
+
+      const filteredParticipants = participants
+        .filter(participant => {
+          // Filter by search query
+          if (searchQuery && !participant.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+              !participant.role.toLowerCase().includes(searchQuery.toLowerCase()) &&
+              !participant.skills.some(skill => skill.toLowerCase().includes(searchQuery.toLowerCase())) &&
+              !participant.interests.some(interest => interest.toLowerCase().includes(searchQuery.toLowerCase()))) {
+            return false;
+          }
+
+          // Filter by category
+          if (activeFilter === 'connected') {
+            return connectedUsers.includes(participant.id);
+          } else if (activeFilter === 'firstTime') {
+            return participant.firstTimer;
+          } else if (activeFilter === 'dev') {
+            return participant.role.toLowerCase().includes('developer') ||
+                   participant.role.toLowerCase().includes('engineer') ||
+                   participant.skills.some(skill => ['javascript', 'python', 'java', 'react', 'node'].includes(skill.toLowerCase()));
+          } else if (activeFilter === 'design') {
+            return participant.role.toLowerCase().includes('design') ||
+                   participant.skills.some(skill => ['figma', 'ui', 'ux', 'design'].includes(skill.toLowerCase()));
+          }
+
+          return true;
+        });
+
+      return (
+        <div className="max-w-6xl mx-auto">
+          <header className="bg-gradient-to-r from-pink-500 to-purple-600 text-white p-6">
+            <div className="flex justify-between items-center mb-6">
+              <div>
+                <h1 className="text-2xl font-bold">Community</h1>
+                <p className="text-sm opacity-90">Connect with fellow participants before the event</p>
+              </div>
+              <div className="rounded-lg px-3 py-1 flex items-center backdrop-blur-sm">
+                <Star className="mr-1" />
+                <span>{points} engagement points</span>
+              </div>
+            </div>
+
+            {/* Stats bar */}
+            <div className="flex flex-wrap justify-between items-center mt-4 bg-white/10 backdrop-blur-sm rounded-lg p-3">
+              <div className="flex items-center">
+                <Users size={18} className="mr-2" />
+                <span><b>{participants.length}</b> participants</span>
+              </div>
+              <div className="flex items-center">
+                <UserPlus size={18} className="mr-2" />
+                <span><b>{connectedUsers.length}</b> connections</span>
+              </div>
+              <div className="hidden sm:flex items-center">
+                <span className="text-xs bg-purple-500/50 rounded-full px-2 py-0.5 mr-1">+15 points</span>
+                <span>for each new connection</span>
+              </div>
+              <button
+                className={`px-4 py-1 rounded-full text-sm font-medium ${showNetworkView ? 'bg-pink-500 text-white' : 'bg-white/20 hover:bg-white/30'} flex items-center`}
+                onClick={() => setShowNetworkView(!showNetworkView)}
+              >
+                <Network size={16} className="mr-1" />
+                {showNetworkView ? 'List View' : 'Network View'}
+              </button>
+            </div>
+          </header>
+
+          <div className="p-6">
+            {/* Search and filter bar */}
+            <div className="flex flex-col md:flex-row justify-between mb-6 gap-4">
+              <div className="relative flex-grow md:max-w-md">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Search size={18} className="text-gray-500" />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search by name, role, or skills..."
+                  className="w-full pl-10 pr-4 py-2 rounded-lg bg-gray-100 border-0 focus:ring-2 focus:ring-purple-500"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+
+              <div className="flex overflow-x-auto pb-2 gap-2">
+                <button
+                  className={`px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap ${activeFilter === 'all' ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-700'}`}
+                  onClick={() => setActiveFilter('all')}
+                >
+                  All Participants
+                </button>
+                <button
+                  className={`px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap flex items-center ${activeFilter === 'connected' ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-700'}`}
+                  onClick={() => setActiveFilter('connected')}
+                >
+                  <UserPlus size={14} className="mr-1" />
+                  My Connections
+                </button>
+                <button
+                  className={`px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap ${activeFilter === 'firstTime' ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-700'}`}
+                  onClick={() => setActiveFilter('firstTime')}
+                >
+                  First-Time Hackers
+                </button>
+                <button
+                  className={`px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap ${activeFilter === 'dev' ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-700'}`}
+                  onClick={() => setActiveFilter('dev')}
+                >
+                  Developers
+                </button>
+                <button
+                  className={`px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap ${activeFilter === 'design' ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-700'}`}
+                  onClick={() => setActiveFilter('design')}
+                >
+                  Designers
+                </button>
+              </div>
+            </div>
+
+            {/* Network visualization or participant list */}
+            {showNetworkView ? (
+              <div className="bg-dark rounded-xl p-4 shadow-lg mb-6 overflow-hidden" style={{ height: '400px' }}>
+                <h2 className="text-lg font-bold mb-2">Your Connection Network</h2>
+                <p className="text-sm text-gray-500 mb-4">See how you're connected to the HackathonParty community</p>
+                <svg width="100%" height="320" style={{ maxHeight: '320px' }}>
+                  {/* Center node (You) */}
+                  <circle cx="50%" cy="50%" r="12" className="node-you" />
+                  <text x="50%" y="50%" dy="-20" textAnchor="middle" fill="white" fontSize="12">You</text>
+
+                  {/* Connected participants */}
+                  {connectedUsers.map((userId, index) => {
+                    const participant = participants.find(p => p.id === userId);
+                    if (!participant) return null;
+
+                    const angle = (index * ((2 * Math.PI) / connectedUsers.length));
+                    const radius = 120;
+                    const x = Math.cos(angle) * radius + (100 * window.innerWidth / 200);
+                    const y = Math.sin(angle) * radius + 160;
+
+                    return (
+                      <g key={userId}>
+                        <line
+                          x1="50%"
+                          y1="50%"
+                          x2={x}
+                          y2={y}
+                          className="connection-line connection-highlight"
+                        />
+                        <circle cx={x} cy={y} r="8" className="node" />
+                        <text x={x} y={y} dy="-10" textAnchor="middle" fill="white" fontSize="10">
+                          {participant.name.split(' ')[0]}
+                        </text>
+                      </g>
+                    );
+                  })}
+
+                  {/* Potential connections */}
+                  {participants
+                    .filter(p => !connectedUsers.includes(p.id))
+                    .slice(0, 8)
+                    .map((participant, index) => {
+                      const totalPotential = Math.min(8, participants.length - connectedUsers.length);
+                      const angle = (index * ((2 * Math.PI) / totalPotential)) + (Math.PI / 4);
+                      const radius = 220;
+                      const x = Math.cos(angle) * radius + (100 * window.innerWidth / 200);
+                      const y = Math.sin(angle) * radius + 160;
+
+                      return (
+                        <g key={participant.id}>
+                          <line
+                            x1="50%"
+                            y1="50%"
+                            x2={x}
+                            y2={y}
+                            className="connection-line"
+                            strokeOpacity="0.3"
+                          />
+                          <circle cx={x} cy={y} r="5" className="node" fillOpacity="0.5" />
+                          <text x={x} y={y} dy="-8" textAnchor="middle" fill="white" fontSize="9" fillOpacity="0.7">
+                            {participant.name.split(' ')[0]}
+                          </text>
+                        </g>
+                      );
+                    })}
+                </svg>
+              </div>
+            ) : (
+              <div>
+                {/* List of participants */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                  {filteredParticipants.map(participant => (
+                    <div
+                      key={participant.id}
+                      className="bg-dark rounded-lg shadow-md overflow-hidden border border-gray-100 hover:border-purple-500 transition-all"
+                    >
+                      <div className="p-4">
+                        <div className="flex items-center mb-3">
+                          <img
+                            src={participant.image}
+                            alt={participant.name}
+                            className="w-12 h-12 rounded-full mr-3 object-cover border-2 border-gray-700"
+                          />
+                          <div>
+                            <div className="font-bold flex items-center">
+                              {participant.name}
+                              {participant.firstTimer &&
+                                <span className="ml-2 text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">
+                                  First Timer
+                                </span>
+                              }
+                            </div>
+                            <div className="text-sm text-gray-500">{participant.role} at {participant.company}</div>
+                          </div>
+                        </div>
+
+                        <div className="mb-3">
+                          <p className="text-sm mb-2 truncate">{participant.lookingFor}</p>
+                          <div className="flex flex-wrap">
+                            {participant.skills.slice(0, 3).map(skill => (
+                              <span key={skill} className="skill-tag">{skill}</span>
+                            ))}
+                            {participant.skills.length > 3 &&
+                              <span className="skill-tag">+{participant.skills.length - 3} more</span>
+                            }
+                          </div>
+                        </div>
+
+                        <div className="flex justify-between">
+                          <button
+                            className="text-sm text-purple-600 hover:text-purple-800 flex items-center"
+                            onClick={() => handleViewProfile(participant)}
+                          >
+                            View Profile
+                          </button>
+
+                          {connectedUsers.includes(participant.id) ? (
+                            <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full flex items-center">
+                              <UserPlus size={12} className="mr-1" />
+                              Connected
+                            </span>
+                          ) : (
+                            <button
+                              className="text-sm bg-purple-600 text-white px-3 py-1 rounded-full hover:bg-purple-700 flex items-center"
+                              onClick={() => handleConnect(participant.id)}
+                            >
+                              <UserPlus size={14} className="mr-1" />
+                              Connect (+15pts)
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {filteredParticipants.length === 0 && (
+                  <div className="bg-dark rounded-lg p-8 text-center">
+                    <p className="text-lg text-gray-500">No participants found matching your criteria</p>
+                    <button
+                      className="mt-4 text-purple-600 hover:text-purple-800"
+                      onClick={() => {setActiveFilter('all'); setSearchQuery('');}}
+                    >
+                      Clear filters
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Connection success notification */}
+            {showConnectSuccess && (
+              <div className="fixed bottom-6 right-6 bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center pulse-animation">
+                <div className="mr-3 bg-white text-green-500 rounded-full w-8 h-8 flex items-center justify-center font-bold">+15</div>
+                <div>
+                  <div className="font-bold">Connection made!</div>
+                  <div className="text-sm">You earned 15 engagement points</div>
+                </div>
+              </div>
+            )}
+
+            {/* Participant profile modal */}
+            {selectedParticipant && (
+              <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
+                <div className="bg-dark rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                  <div className="relative p-6">
+                    <button
+                      className="absolute top-4 right-4 text-gray-500 hover:text-white"
+                      onClick={handleCloseProfile}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start mb-6">
+                      <img
+                        src={selectedParticipant.image}
+                        alt={selectedParticipant.name}
+                        className="w-24 h-24 rounded-full object-cover border-4 border-purple-500 mb-4 sm:mb-0 sm:mr-6"
+                      />
+                      <div>
+                        <h2 className="text-2xl font-bold">{selectedParticipant.name}</h2>
+                        <p className="text-purple-400">{selectedParticipant.role} at {selectedParticipant.company}</p>
+
+                        {selectedParticipant.firstTimer && (
+                          <span className="inline-block mt-2 text-sm bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">
+                            First-Time Hacker
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="mb-6">
+                      <h3 className="text-lg font-bold mb-2">About</h3>
+                      <p className="text-gray-300">{selectedParticipant.bio}</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                      <div>
+                        <h3 className="text-lg font-bold mb-2">Skills</h3>
+                        <div className="flex flex-wrap">
+                          {selectedParticipant.skills.map(skill => (
+                            <span key={skill} className="skill-tag">{skill}</span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3 className="text-lg font-bold mb-2">Interests</h3>
+                        <div className="flex flex-wrap">
+                          {selectedParticipant.interests.map(interest => (
+                            <span key={interest} className="skill-tag">{interest}</span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mb-6">
+                      <h3 className="text-lg font-bold mb-2">Looking For</h3>
+                      <div className="bg-purple-900/30 rounded-lg p-3">
+                        <p>{selectedParticipant.lookingFor}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-end">
+                      {connectedUsers.includes(selectedParticipant.id) ? (
+                        <span className="text-sm bg-green-100 text-green-700 px-4 py-2 rounded-full flex items-center">
+                          <UserPlus size={16} className="mr-2" />
+                          Connected
+                        </span>
+                      ) : (
+                        <button
+                          className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-6 py-2 rounded-lg hover:opacity-90 flex items-center"
+                          onClick={() => {
+                            handleConnect(selectedParticipant.id);
+                            handleCloseProfile();
+                          }}
+                        >
+                          <UserPlus size={18} className="mr-2" />
+                          Connect with {selectedParticipant.name.split(' ')[0]}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Team Formation CTA */}
+            <div className="bg-gradient-to-r from-indigo-900/50 to-purple-900/50 rounded-xl p-6 my-8">
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold mb-2">Looking for Teammates?</h3>
+                <p className="text-gray-300 max-w-3xl mx-auto">
+                  Finding the right teammates before the hackathon improves your experience and increases your chances of success!
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div className="bg-purple-900/30 rounded-lg p-4 text-center">
+                  <div className="bg-purple-500 w-12 h-12 flex items-center justify-center rounded-full mx-auto mb-3">
+                    <Users size={24} />
+                  </div>
+                  <h4 className="font-bold mb-2">Connect Before the Event</h4>
+                  <p className="text-sm text-gray-300">Reach out to potential teammates to discuss ideas and skills</p>
+                </div>
+
+                <div className="bg-purple-900/30 rounded-lg p-4 text-center">
+                  <div className="bg-purple-500 w-12 h-12 flex items-center justify-center rounded-full mx-auto mb-3">
+                    <MessageCircle size={24} />
+                  </div>
+                  <h4 className="font-bold mb-2">Join Team Formation Group</h4>
+                  <p className="text-sm text-gray-300">Participate in our dedicated Slack channel for team matching</p>
+                </div>
+
+                <div className="bg-purple-900/30 rounded-lg p-4 text-center">
+                  <div className="bg-purple-500 w-12 h-12 flex items-center justify-center rounded-full mx-auto mb-3">
+                    <Network size={24} />
+                  </div>
+                  <h4 className="font-bold mb-2">Attend Virtual Mixer</h4>
+                  <p className="text-sm text-gray-300">Join our pre-event virtual networking session to meet potential teammates</p>
+                </div>
+              </div>
+
+              <div className="mt-6 text-center">
+                <button className="bg-white text-purple-800 font-bold px-6 py-3 rounded-lg hover:bg-gray-100">
+                  Join Team Formation Group (+20 points)
+                </button>
+              </div>
+            </div>
+
+            {/* Call to Action */}
+            <div className="mt-8 bg-gradient-to-r from-indigo-50 to-pink-50 rounded-xl p-6 text-center">
+              <h3 className="text-xl font-bold mb-2">Ready to Make Meaningful Connections?</h3>
+              <p className="text-gray-600 mb-4">Connect with fellow participants, form teams, and prepare for an amazing hackathon experience!</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button className="bg-purple-600 text-white px-4 py-2 rounded-lg">
+                  Update Your Profile
+                </button>
+                <a href="index.html" className="bg-white text-purple-600 border border-purple-200 px-4 py-2 rounded-lg inline-flex items-center justify-center">
+                  Back to Social Media Wall
+                </a>
+              </div>
+
+              <div className="mt-4 flex justify-center space-x-4">
+                <a href="index.html" className="inline-flex items-center text-purple-400 hover:text-purple-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="mr-2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                  Social Media Wall
+                </a>
+                <span className="text-gray-500">|</span>
+                <a href="success-stories.html" className="inline-flex items-center text-purple-400 hover:text-purple-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="mr-2">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  </svg>
+                  Success Stories
+                </a>
+                <span className="text-gray-500">|</span>
+                <a href="incentives.html" className="inline-flex items-center text-purple-400 hover:text-purple-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="mr-2">
+                    <path d="M12 8H8a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-4z"/>
+                    <path d="M12 2v6"/>
+                    <path d="M12 18v4"/>
+                    <path d="m4.93 10.93 2.83-2.83"/>
+                    <path d="m16.24 16.24 2.83-2.83"/>
+                  </svg>
+                  Prizes & Incentives
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // Render the component
+    ReactDOM.render(<CommunityPage />, document.getElementById('root'));
+  </script>
+</body>
+</html
