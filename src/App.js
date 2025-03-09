@@ -39,7 +39,7 @@ function App() {
         {/* <Route path="/leaderboard" element={<NoShowReducer />} /> */}
         <Route path="/incentives" element={<HTMLPage />} /> {/* New Route for HTML Page */}
         <Route path="/community" element={<HTMLPage1 />} /> {/* New Route for HTML Page */}
-        <Route path="/leaderboard" element={<HTMLPage2 />} /> {/* New Route for HTML Page */}
+        <Route path="/points-dashboards" element={<HTMLPage2 />} /> {/* New Route for HTML Page */}
       </Routes>
     </Router>
   );
